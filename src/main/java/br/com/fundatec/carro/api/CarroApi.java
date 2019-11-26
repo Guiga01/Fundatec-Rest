@@ -4,6 +4,7 @@ import br.com.fundatec.carro.api.service.CarroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Array;
@@ -21,8 +22,9 @@ public class CarroApi {
 
 
     @GetMapping("carros")
-    public ResponseEntity <List<String>> getCarros(){
+    public ResponseEntity <List<String>> getCarros(@RequestParam (required = false, defaultValue = "") String nome){
         List<String> carros = carroService.listaCarros();
+        System.out.println(nome);
         return ResponseEntity.ok(carros);
 
     }
