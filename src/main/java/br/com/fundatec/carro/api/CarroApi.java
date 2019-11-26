@@ -23,8 +23,10 @@ public class CarroApi {
 
     @GetMapping("carros")
     public ResponseEntity <List<String>> getCarros(@RequestParam (required = false, defaultValue = "") String nome){
-        List<String> carros = carroService.listaCarros();
-        System.out.println(nome);
+        List<String> carros = carroService.listaCarros(nome);
+        if(carros.size() == 0 ){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body((carros));
+        }
         return ResponseEntity.ok(carros);
 
     }
