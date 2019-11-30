@@ -21,4 +21,7 @@ public class CarroService {
     public Carro consultar(Long id){
         return carroRepository.consultar(id);
     }
+    public Carro incluir(Carro carro){
+      return carroRepository.incluir(carro);
+    }
 }
