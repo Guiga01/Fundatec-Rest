@@ -1,4 +1,4 @@
-package br.com.fundatec.carro.api.service;
+package br.com.fundatec.carro.service;
 
 import br.com.fundatec.carro.Repository.CarroRepository;
 import br.com.fundatec.carro.model.Carro;
