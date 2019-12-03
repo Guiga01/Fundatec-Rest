@@ -26,6 +26,8 @@ public class CarroMapper {
         Carro carro = new Carro();
         carro.setNome(carroImputDto.getNome());
         carro.setPlaca(carroImputDto.getPlaca());
+        carro.setDataFabricacao(carroImputDto.getDataFabricacao());
+        carro.setDataModelo(carroImputDto.getDataModelo());
         return carro;
     }
 

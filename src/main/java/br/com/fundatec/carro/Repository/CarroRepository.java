@@ -10,6 +10,7 @@ public class CarroRepository {
 
     private static List<Carro> listaCarros = null;
 
+
     public List<Carro> listaCarros(String nome){
         List<Carro>listaResultado = new ArrayList<>();
         for(Carro carro : getlistaCarros()){
@@ -43,7 +44,10 @@ public class CarroRepository {
 
     public Carro incluir(Carro carro) {
         carro.setId(new Long (getlistaCarros().size() + 1l));
+        carro.setDataFabricacao(carro.getDataFabricacao());
+        carro.setDataModelo(carro.getDataModelo());
         listaCarros.add(carro);
+
         return carro;
-    }
+            }
 }

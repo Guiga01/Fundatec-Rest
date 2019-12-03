@@ -13,15 +13,28 @@ public class CarroService {
     public CarroService(CarroRepository carroRepository) {
         this.carroRepository = carroRepository;
     }
-    public List<Carro> listaCarros(String nome){
+
+    public List<Carro> listaCarros(String nome) {
 
 
         return carroRepository.listaCarros(nome);
     }
-    public Carro consultar(Long id){
+
+    public Carro consultar(Long id) {
         return carroRepository.consultar(id);
     }
-    public Carro incluir(Carro carro){
-      return carroRepository.incluir(carro);
+
+    public Carro incluir(Carro carro) {
+        return carroRepository.incluir(carro);
     }
+
+    private void validar(Carro carro) {
+        if (carro.getDataModelo().isBefore(carro.getDataFabricacao())) {
+            throw new RuntimeException("Data de Fabricação deve ser menor que data modelo");
+
+        }
+
+    }
+
+
 }
