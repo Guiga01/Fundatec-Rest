@@ -9,6 +9,8 @@ public class Carro {
     private String placa;
     private LocalDate dataFabricacao;
     private LocalDate dataModelo;
+    private String marca;
+
 
     public Carro() {
     }
@@ -17,6 +19,14 @@ public class Carro {
         this.id = id;
         this.nome = nome;
         this.placa = placa;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public LocalDate getDataFabricacao() {
