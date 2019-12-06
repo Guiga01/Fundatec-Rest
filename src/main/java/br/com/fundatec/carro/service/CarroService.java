@@ -4,6 +4,7 @@ import br.com.fundatec.carro.Repository.CarroRepsitory;
 import br.com.fundatec.carro.model.Carro;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class CarroService {
     private final CarroRepsitory carroRepsitory;
 
     public CarroService(CarroRepsitory carroRepositoryFake, CarroRepsitory carroRepsitory) {
-
         this.carroRepsitory = carroRepsitory;
     }
 
@@ -43,4 +43,7 @@ public class CarroService {
     }
 
 
+    public List<Carro> listaCarros(LocalDate dataInicio, LocalDate dataFim) {
+        return carroRepsitory.findByDataFabricacaoBetween(dataInicio,dataFim);
+    }
 }

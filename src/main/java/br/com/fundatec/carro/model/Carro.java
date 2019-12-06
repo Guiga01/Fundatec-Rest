@@ -16,7 +16,6 @@ public class Carro {
     private LocalDate dataModelo;
     private String marca;
 
-
     public Carro() {
     }
 
@@ -25,6 +24,8 @@ public class Carro {
         this.nome = nome;
         this.placa = placa;
     }
+
+
 
     public String getMarca() {
         return marca;

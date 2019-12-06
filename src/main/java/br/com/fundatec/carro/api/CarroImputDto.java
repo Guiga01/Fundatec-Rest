@@ -19,6 +19,24 @@ public class CarroImputDto {
     private LocalDate dataModelo;
     @NotNull(message ="o campo esta vazio" )
     private String marca;
+    private LocalDate dataInic;
+    private LocalDate dataFim;
+
+    public LocalDate getDataInic() {
+        return dataInic;
+    }
+
+    public void setDataInic(LocalDate dataInic) {
+        this.dataInic = dataInic;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
+    }
 
     public String getMarca() {
         return marca;
