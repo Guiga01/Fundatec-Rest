@@ -1,6 +1,6 @@
 package br.com.fundatec.carro.service;
 
-import br.com.fundatec.carro.Repository.CarroRepository;
+import br.com.fundatec.carro.Repository.CarroRepsitory;
 import br.com.fundatec.carro.model.Carro;
 import org.springframework.stereotype.Service;
 
@@ -9,25 +9,25 @@ import java.util.List;
 
 @Service
 public class CarroService {
-    private final CarroRepository carroRepository;
 
-    public CarroService(CarroRepository carroRepository) {
-        this.carroRepository = carroRepository;
+    private final CarroRepsitory carroRepsitory;
+
+    public CarroService(CarroRepsitory carroRepositoryFake, CarroRepsitory carroRepsitory) {
+
+        this.carroRepsitory = carroRepsitory;
     }
 
     public List<Carro> listaCarros(String nome) {
-
-
-        return carroRepository.listaCarros(nome);
+        return carroRepsitory.findByNomeContainingIgnoreCase(nome);
     }
 
     public Carro consultar(Long id) {
-        return carroRepository.consultar(id);
+        return carroRepsitory.findById(id).orElse(null);
     }
 
     public Carro incluir(Carro carro) {
         validar(carro);
-        return carroRepository.incluir(carro);
+        return carroRepsitory.save(carro);
     }
 
     private void validar(Carro carro) {
