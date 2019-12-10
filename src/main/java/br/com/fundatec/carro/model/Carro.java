@@ -1,10 +1,9 @@
 package br.com.fundatec.carro.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
+
 @Entity
 public class Carro {
     @Id
@@ -15,6 +14,8 @@ public class Carro {
     private LocalDate dataFabricacao;
     private LocalDate dataModelo;
     private String marca;
+    @OneToMany(mappedBy = "carro")
+    private Set<Reserva> reservas;
 
     public Carro() {
     }
@@ -73,5 +74,13 @@ public class Carro {
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public Set<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(Set<Reserva> reservas) {
+        this.reservas = reservas;
     }
 }

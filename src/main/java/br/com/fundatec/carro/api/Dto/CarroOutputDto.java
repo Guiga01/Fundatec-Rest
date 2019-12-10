@@ -1,4 +1,4 @@
-package br.com.fundatec.carro.api;
+package br.com.fundatec.carro.api.Dto;
 
 import java.time.LocalDate;
 
