@@ -46,4 +46,16 @@ public class CarroService {
     public List<Carro> listaCarros(LocalDate dataInicio, LocalDate dataFim) {
         return carroRepsitory.findByDataFabricacaoBetween(dataInicio,dataFim);
     }
+    public Carro atualizar(Long idCarro,Carro carroParaAtualizacao){
+        Carro carro = consultar(idCarro);
+        if(carro != null ){
+            carro.setNome(carroParaAtualizacao.getNome());
+            carro.setDataModelo(carroParaAtualizacao.getDataModelo());
+            carro.setMarca(carroParaAtualizacao.getMarca());
+            carro.setPlaca(carroParaAtualizacao.getPlaca());
+            carro.setDataFabricacao(carroParaAtualizacao.getDataFabricacao());
+            carro = carroRepsitory.save(carro);
+        }
+        return carro;
+    }
 }

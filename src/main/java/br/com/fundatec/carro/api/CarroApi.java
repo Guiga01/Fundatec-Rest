@@ -66,8 +66,6 @@ public class CarroApi {
                                                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim){
         List<Carro> carros = carroService.listaCarros(dataInicio,dataFim);
         return getListResponseEntityCarroOutputDto(carros);
-
-
     }
 
     private ResponseEntity<List<CarroOutputDto>> getListResponseEntityCarroOutputDto(List<Carro> carros) {
@@ -76,5 +74,13 @@ public class CarroApi {
         }
         List<CarroOutputDto> carrosOutputDtos = carroMapper.mapear(carros);
         return ResponseEntity.ok(carrosOutputDtos);
+    }
+    @PutMapping("/carros/{id}")
+    public ResponseEntity<?> atualizarCarro(@PathVariable Long id , @RequestBody CarroImputDto carroImputDto){
+        Carro carro = carroMapper.mapear(carroImputDto);
+        carro = carroService.atualizar(id,carro);
+        CarroOutputDto carroOutputDto = carroMapper.mapear(carro);
+        return ResponseEntity.ok(carroOutputDto);
+
     }
 }
