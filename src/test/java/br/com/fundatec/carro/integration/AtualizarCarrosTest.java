@@ -68,5 +68,28 @@ public class AtualizarCarrosTest {
         Assert.assertEquals("2004-06-12",carroOutputDto.getDataFabricacao().toString());
         Assert.assertEquals("2005-07-14",carroOutputDto.getDataModele().toString());
         Assert.assertEquals("Voklwagem",carroOutputDto.getMarca());
+
+
+    }
+
+    @Test
+    public void deveRetornarVazioQuandoAtualiarUmCarroexistente(){
+        RestAssured.given().accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body("{\n" +
+                        "\t\"nome\": \"GolBola\",\n" +
+                        "\t\"placa\": \"RER2012\",\n" +
+                        "\t\"dataFabricacao\": \"2004-06-12\",\n" +
+                        "\t\"dataModelo\": \"2005-07-14\",\n" +
+                        "\t\"marca\": \"Voklwagem\"\n" +
+                        "\n" +
+                        "}")
+                .when()
+                .put("/carros/{id}",45)
+                 .then()
+                .statusCode (HttpStatus.NO_CONTENT.value());
+
+        {
+        }
     }
 }
