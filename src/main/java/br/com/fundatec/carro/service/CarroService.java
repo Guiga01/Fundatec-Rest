@@ -58,4 +58,7 @@ public class CarroService {
         }
         return carro;
     }
+    public void excluir(Long id){
+        carroRepsitory.deleteById(id);
+    }
 }

@@ -9,4 +9,4 @@ import java.util.List;
 public interface CarroRepsitory extends CrudRepository<Carro, Long> {
     List<Carro> findByNomeContainingIgnoreCase(String nome);
     List<Carro> findByDataFabricacaoBetween(LocalDate dataInicio,LocalDate dataFim);
-}
+    }

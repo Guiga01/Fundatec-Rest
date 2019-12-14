@@ -18,25 +18,26 @@ import java.util.List;
 @RestController
 public class CarroApi {
 
-    private  final CarroService carroService;
-    private  final CarroMapper carroMapper;
-    public CarroApi(CarroService carroService, CarroMapper carroMapper){
+    private final CarroService carroService;
+    private final CarroMapper carroMapper;
+
+    public CarroApi(CarroService carroService, CarroMapper carroMapper) {
         this.carroService = carroService;
         this.carroMapper = carroMapper;
     }
 
 
     @GetMapping("carros")
-    public ResponseEntity <List<CarroOutputDto>> getCarros(@RequestParam (required = false, defaultValue = "") String nome){
+    public ResponseEntity<List<CarroOutputDto>> getCarros(@RequestParam(required = false, defaultValue = "") String nome) {
         List<Carro> carros = carroService.listaCarros(nome);
         return getListResponseEntityCarroOutputDto(carros);
 
     }
 
     @GetMapping("/carros/{id}")
-    public ResponseEntity<CarroOutputDto> getCarro(@PathVariable Long id){
+    public ResponseEntity<CarroOutputDto> getCarro(@PathVariable Long id) {
         Carro carro = carroService.consultar(id);
-        if (carro != null){
+        if (carro != null) {
 
             CarroOutputDto carroOutputDto = carroMapper.mapear(carro);
             return ResponseEntity.ok(carroOutputDto);
@@ -45,15 +46,15 @@ public class CarroApi {
         return ResponseEntity.noContent().build();
 
     }
+
     @PostMapping("/carros")
-    public ResponseEntity<?> incluir(@Valid @RequestBody CarroImputDto carroImputDto){
+    public ResponseEntity<?> incluir(@Valid @RequestBody CarroImputDto carroImputDto) {
         Carro carro = carroMapper.mapear(carroImputDto);
         try {
             carro = carroService.incluir(carro);
             CarroOutputDto carroOutputDto = carroMapper.mapear(carro);
             return ResponseEntity.status(HttpStatus.CREATED).body(carroOutputDto);
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             ErroDto erroDto = new ErroDto();
             erroDto.setMensagem(e.getMessage());
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(erroDto);
@@ -61,10 +62,11 @@ public class CarroApi {
         }
 
     }
+
     @GetMapping("/carros/datas")
     public ResponseEntity<List<CarroOutputDto>> listar(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
-                                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim){
-        List<Carro> carros = carroService.listaCarros(dataInicio,dataFim);
+                                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
+        List<Carro> carros = carroService.listaCarros(dataInicio, dataFim);
         return getListResponseEntityCarroOutputDto(carros);
     }
 
@@ -75,14 +77,22 @@ public class CarroApi {
         List<CarroOutputDto> carrosOutputDtos = carroMapper.mapear(carros);
         return ResponseEntity.ok(carrosOutputDtos);
     }
+
     @PutMapping("/carros/{id}")
-    public ResponseEntity<?> atualizarCarro(@PathVariable Long id , @RequestBody CarroImputDto carroImputDto){
+    public ResponseEntity<?> atualizarCarro(@PathVariable Long id, @RequestBody CarroImputDto carroImputDto) {
         Carro carro = carroMapper.mapear(carroImputDto);
-        carro = carroService.atualizar(id,carro);
+        carro = carroService.atualizar(id, carro);
+        if (carro == null) {
+            return ResponseEntity.noContent().build();
+        }
         CarroOutputDto carroOutputDto = carroMapper.mapear(carro);
         return ResponseEntity.ok(carroOutputDto);
 
 
-
+    }
+    @DeleteMapping ("/carros/{id}")
+    public ResponseEntity<?> excluirCarro(@PathVariable Long id){
+        carroService.excluir(id);
+        return ResponseEntity.ok().build();
     }
 }
