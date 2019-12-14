@@ -6,6 +6,9 @@ import br.com.fundatec.carro.api.Dto.ErroDto;
 import br.com.fundatec.carro.mapper.CarroMapper;
 import br.com.fundatec.carro.model.Carro;
 import br.com.fundatec.carro.service.CarroService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +51,12 @@ public class CarroApi {
     }
 
     @PostMapping("/carros")
+    @ApiOperation(value = "Faz a inclusão de um carro no banco de dados",
+            notes = "Valida se os campos obrigatório, valida se a data fabricação é no passado .. . voltaremos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Carro incluido com sucesso", response =CarroOutputDto.class ),
+    })
+
     public ResponseEntity<?> incluir(@Valid @RequestBody CarroImputDto carroImputDto) {
         Carro carro = carroMapper.mapear(carroImputDto);
         try {
@@ -64,6 +73,11 @@ public class CarroApi {
     }
 
     @GetMapping("/carros/datas")
+    @ApiOperation(value = "Lista todos os carros contidos no banco",
+            notes = "lista carros, filtra por data de fabricaçõa menores que de modelo")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Conculta realizada com sucesso", response =CarroOutputDto.class ),
+    })
     public ResponseEntity<List<CarroOutputDto>> listar(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
                                                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
         List<Carro> carros = carroService.listaCarros(dataInicio, dataFim);
